@@ -151,7 +151,7 @@ int main() {
 
         // Display Christmas tree
         display_christmas_tree();
-
+		system("cls");
 
         // Display menu
         display_menu();
