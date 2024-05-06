@@ -125,7 +125,7 @@ int main() {
         printf("\nPassword: %s\n", password);
         
         // Prompt user for password
-        printf("\nEnter the 4-digit password: ");
+        printf("\n請輸入4位數字密碼: ");
         scanf("%s", input_password);
 
         // Check if password is correct
@@ -164,6 +164,7 @@ int main() {
         switch (choice) {
             case 'a':
             case 'A':
+            	system("cls");
                 draw_triangle();
                 break;
             case 'b':
