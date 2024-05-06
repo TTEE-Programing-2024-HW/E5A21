@@ -50,30 +50,38 @@ void draw_triangle() {
     char input;
     int i, j;
     
-    printf("\nPlease enter a character between 'a' and 'n': ");
-    scanf(" %c", &input);
+    // Loop until valid input is provided
+    while (1) {
+        printf("\nPlease enter a character between 'a' and 'n' (or '0' to return to main menu): ");
+        scanf(" %c", &input);
 
-    // Clear screen
-    system("cls");
+        // Clear screen
+        system("cls");
 
-    // Check if input is within range
-    if (input < 'a' || input > 'n') {
-        printf("\nInvalid input. Please enter a character between 'a' and 'n'.");
+        // Check if user wants to return to main menu
+        if (input == '0')
+            return;
+
+        // Check if input is within range
+        if (input < 'a' || input > 'n') {
+            printf("\nInvalid input. Please enter a character between 'a' and 'n'.\n");
+            continue;
+        }
+
+        // Display right triangle
+        for (i = 0; i <= (input - 'a'); i++) {
+            for (j = 0; j <= i; j++) {
+                printf("%c ", 'A' + j);
+            }
+            printf("\n");
+        }
+
+        // Wait for any key press to return to the main menu
+        printf("\nPress any key to return to the main menu...");
+        getch();
+        system("cls");
         return;
     }
-
-    // Display right triangle
-    for (i = 0; i <= (input - 'a'); i++) {
-        for (j = 0; j <= i; j++) {
-            printf("%c ", 'A' + j);
-        }
-        printf("\n");
-    }
-
-    // Wait for any key press to clear the screen
-    printf("\nPress any key to return to the main menu...");
-    getch();
-    system("cls");
 }
 
 // Function to display multiplication table based on user input
