@@ -70,6 +70,11 @@ void draw_triangle() {
 
         // Display right triangle
         for (i = 0; i <= (input - 'a'); i++) {
+            // Print spaces before each row
+            for (j = 0; j < (input - 'a' - i); j++) {
+                printf("  ");
+            }
+            // Print characters for each row
             for (j = 0; j <= i; j++) {
                 printf("%c ", 'A' + j);
             }
