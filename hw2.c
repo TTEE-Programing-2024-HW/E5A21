@@ -80,31 +80,39 @@ void draw_triangle() {
 void display_multiplication_table() {
     int n, i, j;
 
-    printf("\nEnter an integer between 1 and 9: ");
-    scanf("%d", &n);
+    // Loop until valid input is provided
+    while (1) {
+        printf("\nEnter an integer between 1 and 9 (or '0' to return to main menu): ");
+        scanf("%d", &n);
 
-    // Clear screen
-    system("cls");
+        // Clear screen
+        system("cls");
 
-    // Check if input is within range
-    if (n < 1 || n > 9) {
-        printf("\nInvalid input. Please enter an integer between 1 and 9.");
+        // Check if user wants to return to main menu
+        if (n == 0)
+            return;
+
+        // Check if input is within range
+        if (n < 1 || n > 9) {
+            printf("\nInvalid input. Please enter an integer between 1 and 9.\n");
+            continue;
+        }
+
+        // Display multiplication table
+        printf("\nMultiplication table for %d:\n\n", n);
+        for (i = 1; i <= n; i++) {
+            for (j = 1; j <= n; j++) {
+                printf("%3d ", i * j);
+            }
+            printf("\n");
+        }
+
+        // Wait for any key press to return to the main menu
+        printf("\nPress any key to return to the main menu...");
+        getch();
+        system("cls");
         return;
     }
-
-    // Display multiplication table
-    printf("\nMultiplication table for %d:\n\n", n);
-    for (i = 1; i <= n; i++) {
-        for (j = 1; j <= n; j++) {
-            printf("%d\t", i * j);
-        }
-        printf("\n");
-    }
-
-    // Wait for any key press to clear the screen
-    printf("\nPress any key to return to the main menu...");
-    getch();
-    system("cls");
 }
 
 int main() {
