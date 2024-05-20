@@ -6,7 +6,7 @@
 
 #define ROWS 9
 #define COLS 9
-
+#define RESERVED_SEATS 10
 char seats[ROWS][COLS];
 
 // 清除屏函?
@@ -72,15 +72,21 @@ void generate_seats(char seats[ROWS][COLS]) {
 
 // 顯示座位表
 void display_seats(char seats[ROWS][COLS]) {
-    printf("  123456789\n");
-    for (int i = ROWS; i > 0; i--) {
-        printf("%d ", i);
-        for (int j = 0; j < COLS; j++) {
-            printf("%c", seats[i - 1][j]);
+    int row, col;
+    printf("  ");
+    for (col = 0; col < COLS; col++) {
+        printf("%d", col + 1);
+    }
+    printf("\n");
+    for (row = 0; row < ROWS; row++) {
+        printf("%d ", ROWS - row);
+        for (col = 0; col < COLS; col++) {
+            printf("%c", seats[row][col]);
         }
         printf("\n");
     }
 }
+
 // 主函式?
 int main() {
     char choice;
@@ -118,17 +124,17 @@ int main() {
         fflush(stdin);
         displayMenu();
         printf("\nEnter your choice: ");
-        scanf(" %c", &choice);
-    	generate_seats(seats);
+        choice=getch();
+
 
 	
         switch (choice) {
             case 'a':
             case 'A':	
-                clearScreen();
-                void display_seats();
+                clearScreen();    	
+				display_seats(seats);
                 printf("Press any key to return to the main menu...");
-                _getch();
+                getch();
                 break;
             case 'b':
             case 'B':
@@ -136,7 +142,7 @@ int main() {
                 clearScreen();
                 printf("Arrange seats feature not implemented yet\n");
                 printf("Press any key to return to the main menu...");
-                _getch();
+                getch();
                 break;
             case 'c':
             case 'C':
@@ -144,7 +150,7 @@ int main() {
                 clearScreen();
                 printf("Choose seats yourself feature not implemented yet\n");
                 printf("Press any key to return to the main menu...");
-                _getch();
+                getch();
                 break;
             case 'd':
             case 'D':
@@ -158,12 +164,12 @@ int main() {
                     return 0;
                 } else {
                     printf("Invalid input. Returning to the main menu...");
-                    _getch();
+                    getch();
                 }
                 break;
             default:
                 printf("Invalid choice. Try again.\n");
-                _getch();
+                getch();
         }
     }
 
