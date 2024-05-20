@@ -9,7 +9,7 @@
 #define RESERVED_SEATS 10
 char seats[ROWS][COLS];
 
-// 清除屏函?
+// 清除屏函
 void clearScreen() {
     system("CLS");
 }
@@ -47,7 +47,7 @@ void display_christmas_tree() {
     printf("             |||\n");
 }
 
-// 顯示主選單?
+// 顯示主選單
 void displayMenu() {
     printf("----------[BookingSystem]----------\n");
     printf("|  a. Available seats             |\n");
@@ -110,7 +110,111 @@ void display_seats(char seats[ROWS][COLS]) {
     }
 }
 
-// 主函式
+// 安排座位功能
+void arrange_seats(char seats[ROWS][COLS]) {
+    int num_seats, row, col, i;
+    printf("\nHow many seats do you need (1-4)? ");
+    scanf("%d", &num_seats);
+
+    // Clear screen
+    system("cls");
+
+    if (num_seats < 1 || num_seats > 4) {
+        printf("\nInvalid number of seats. Please enter a number between 1 and 4.\n");
+        getch();
+        return;
+    }
+
+    // 建議座位
+    int suggested = 0;
+    for (row = 0; row < ROWS && suggested == 0; row++) {
+        for (col = 0; col < COLS; col++) {
+            if (num_seats <= 3) {
+                // 找連號座位
+                if (col + num_seats <= COLS) {
+                    int available = 1;
+                    for (i = 0; i < num_seats; i++) {
+                        if (seats[row][col + i] != '-') {
+                            available = 0;
+                            break;
+                        }
+                    }
+                    if (available) {
+                        for (i = 0; i < num_seats; i++) {
+                            seats[row][col + i] = '@';
+                        }
+                        suggested = 1;
+                        break;
+                    }
+                }
+            } else if (num_seats == 4) {
+                // 同一排或相鄰兩兩座位
+                if (col + 4 <= COLS) {
+                    int available = 1;
+                    for (i = 0; i < 4; i++) {
+                        if (seats[row][col + i] != '-') {
+                            available = 0;
+                            break;
+                        }
+                    }
+                    if (available) {
+                        for (i = 0; i < 4; i++) {
+                            seats[row][col + i] = '@';
+                        }
+                        suggested = 1;
+                        break;
+                    }
+                }
+                if (row + 1 < ROWS && col + 2 <= COLS) {
+                    int available = 1;
+                    for (i = 0; i < 2; i++) {
+                        if (seats[row][col + i] != '-' || seats[row + 1][col + i] != '-') {
+                            available = 0;
+                            break;
+                        }
+                    }
+                    if (available) {
+                        for (i = 0; i < 2; i++) {
+                            seats[row][col + i] = '@';
+                            seats[row + 1][col + i] = '@';
+                        }
+                        suggested = 1;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    if (!suggested) {
+        printf("\nNo available seats found for your request.\n");
+        getch();
+        return;
+    }
+
+    display_seats(seats);
+
+    // 會座位安排可否
+    printf("\nAre you satisfied with the arrangement? (y/n): ");
+    char choice;
+    fflush(stdin);
+    choice = getch();
+    if (choice == 'y' || choice == 'Y') {
+        // 確認座位
+        for (row = 0; row < ROWS; row++) {
+            for (col = 0; col < COLS; col++) {
+                if (seats[row][col] == '@') {
+                    seats[row][col] = '*';
+                }
+            }
+        }
+    }
+
+    // Clear screen
+    system("cls");
+}
+
+// 主函式  
 int main() {
     char choice;
     char password[5];
@@ -161,15 +265,11 @@ int main() {
                 break;
             case 'b':
             case 'B':
-                // 安排座位的
                 clearScreen();
-                printf("Arrange seats feature not implemented yet\n");
-                printf("Press any key to return to the main menu...");
-                getch();
-                break;
+                arrange_seats(seats);
+				break;
             case 'c':
-            case 'C':
-                // 
+            case 'C': 
                 clearScreen();
                 printf("Choose seats yourself feature not implemented yet\n");
                 printf("Press any key to return to the main menu...");
