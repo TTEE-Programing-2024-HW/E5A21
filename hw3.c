@@ -214,6 +214,42 @@ void arrange_seats(char seats[ROWS][COLS]) {
     system("cls");
 }
 
+// 自選座位
+void choose_seats(char seats[ROWS][COLS]) {
+    char input[5];
+    int row, col;
+    int valid = 0;
+
+    while (!valid) {
+        printf("\nEnter your seat choices (e.g., 1-2,2-9): ");
+        scanf("%s", input);
+
+        // 拆解輸入內容 
+        if (sscanf(input, "%d-%d", &row, &col) != 2 || row < 1 || row > ROWS || col < 1 || col > COLS || seats[ROWS - row][col - 1] != '-') {
+            printf("\nInvalid input or seat already taken. Please try again.\n");
+        } else {
+            valid = 1;
+            seats[ROWS - row][col - 1] = '@';
+        }
+    }
+
+    display_seats(seats);
+
+    // 確認位置
+    printf("\nPress any key to confirm your choices...");
+    getch();
+    for (row = 0; row < ROWS; row++) {
+        for (col = 0; col < COLS; col++) {
+            if (seats[row][col] == '@') {
+                seats[row][col] = '*';
+            }
+        }
+    }
+
+    // Clear screen
+    system("cls");
+}
+
 // 主函式  
 int main() {
     char choice;
@@ -242,7 +278,7 @@ int main() {
         printf("Too many incorrect attempts. Exiting...\n");
         return 0;
     }
-	// Clear screen
+
 
 
 
@@ -271,9 +307,7 @@ int main() {
             case 'c':
             case 'C': 
                 clearScreen();
-                printf("Choose seats yourself feature not implemented yet\n");
-                printf("Press any key to return to the main menu...");
-                getch();
+                choose_seats(seats);
                 break;
             case 'd':
             case 'D':
