@@ -87,13 +87,14 @@ int main() {
     char password[5];
     int attempts = 0;
     const char correctPassword[] = "2024";
+ 
 
-    // Display Christmas tree
-    display_christmas_tree();
-    
+	// Display Christmas tree    
+	display_christmas_tree();
+    void clearScreen();
     // 密碼輸入
     while (attempts < 3) {
-        printf("Enter 4-digit password: ");
+        printf("輸入4位數字密碼: ");
         scanf("%4s", password);
         if (strcmp(password, correctPassword) == 0) {
             printf("Welcome!\n");
@@ -108,22 +109,27 @@ int main() {
         printf("Too many incorrect attempts. Exiting...\n");
         return 0;
     }
+	// Clear screen
+
 
     generate_seats(seats);
 
-    while (1) {
+    while (1) {    
+		system("cls");
         clearScreen();
         displayMenu();
         choice = _getch();
 
         switch (choice) {
             case 'a':
+            case 'A':	
                 clearScreen();
                 void display_seats();
                 printf("Press any key to return to the main menu...");
                 _getch();
                 break;
             case 'b':
+            case 'B':
                 // 安排座位的
                 clearScreen();
                 printf("Arrange seats feature not implemented yet\n");
@@ -131,6 +137,7 @@ int main() {
                 _getch();
                 break;
             case 'c':
+            case 'C':
                 // 
                 clearScreen();
                 printf("Choose seats yourself feature not implemented yet\n");
@@ -138,6 +145,7 @@ int main() {
                 _getch();
                 break;
             case 'd':
+            case 'D':
                 clearScreen();
                 printf("Continue? (y/n): ");
                 char confirm = _getch();
