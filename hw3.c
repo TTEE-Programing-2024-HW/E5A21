@@ -91,7 +91,7 @@ int main() {
 
 	// Display Christmas tree    
 	display_christmas_tree();
-    void clearScreen();
+	
     // 密碼輸入
     while (attempts < 3) {
         printf("輸入4位數字密碼: ");
@@ -112,14 +112,16 @@ int main() {
 	// Clear screen
 
 
-    generate_seats(seats);
 
     while (1) {    
-		system("cls");
         clearScreen();
+        fflush(stdin);
         displayMenu();
-        choice = _getch();
+        printf("\nEnter your choice: ");
+        scanf(" %c", &choice);
+    	generate_seats(seats);
 
+	
         switch (choice) {
             case 'a':
             case 'A':	
