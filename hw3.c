@@ -9,7 +9,7 @@
 
 char seats[ROWS][COLS];
 
-// 清屏函?
+// 清除屏函?
 void clearScreen() {
     system("CLS");
 }
@@ -47,7 +47,7 @@ void display_christmas_tree() {
     printf("             |||\n");
 }
 
-// ?示主菜?
+// 顯示主選單?
 void displayMenu() {
     printf("----------[BookingSystem]----------\n");
     printf("|  a. Available seats             |\n");
@@ -81,7 +81,7 @@ void display_seats(char seats[ROWS][COLS]) {
         printf("\n");
     }
 }
-// 主函?
+// 主函式?
 int main() {
     char choice;
     char password[5];
@@ -91,7 +91,7 @@ int main() {
     // Display Christmas tree
     display_christmas_tree();
     
-    // 密??入和??
+    // 密碼輸入
     while (attempts < 3) {
         printf("Enter 4-digit password: ");
         scanf("%4s", password);
@@ -119,19 +119,19 @@ int main() {
         switch (choice) {
             case 'a':
                 clearScreen();
-                displaySeats();
+                void display_seats();
                 printf("Press any key to return to the main menu...");
                 _getch();
                 break;
             case 'b':
-                // 安排座位的代???
+                // 安排座位的
                 clearScreen();
                 printf("Arrange seats feature not implemented yet\n");
                 printf("Press any key to return to the main menu...");
                 _getch();
                 break;
             case 'c':
-                // 自主??座位的代???
+                // 
                 clearScreen();
                 printf("Choose seats yourself feature not implemented yet\n");
                 printf("Press any key to return to the main menu...");
