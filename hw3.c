@@ -14,7 +14,7 @@ void clearScreen() {
     system("CLS");
 }
 
-// Function to display Christmas tree
+// 個人風格
 void display_christmas_tree() {
     printf("              *\n");
     printf("             ***\n");
@@ -69,6 +69,29 @@ void generate_seats(char seats[ROWS][COLS]) {
         }
     }
 }
+// 一開始的隨機座位功能
+void initialize_seats(char seats[ROWS][COLS]) {
+    int reserved = 0;
+    int row, col;
+    srand(time(NULL)); // 亂數產生
+
+    // 所有座位初始為空位
+    for (row = 0; row < ROWS; row++) {
+        for (col = 0; col < COLS; col++) {
+            seats[row][col] = '-';
+        }
+    }
+
+    // 隨機預留10個座位 
+    while (reserved < RESERVED_SEATS) {
+        row = rand() % ROWS;
+        col = rand() % COLS;
+        if (seats[row][col] == '-') {
+            seats[row][col] = '*';
+            reserved++;
+        }
+    }
+}
 
 // 顯示座位表
 void display_seats(char seats[ROWS][COLS]) {
@@ -87,15 +110,15 @@ void display_seats(char seats[ROWS][COLS]) {
     }
 }
 
-// 主函式?
+// 主函式
 int main() {
     char choice;
     char password[5];
     int attempts = 0;
     const char correctPassword[] = "2024";
  
-
-	// Display Christmas tree    
+	initialize_seats(seats); 
+	// 個人風格    
 	display_christmas_tree();
 	
     // 密碼輸入
