@@ -93,15 +93,18 @@ void showMenu()
     printf("------------------------------------\n");
 }
 
+// 檢查成績是否在有效範圍內的函式
+int isValidGrade(int grade) {
+    return grade >= 0 && grade <= 100;
+}
+
 // 輸入學生成績的函式
 void enterGrades() 
 {
     int n;
     clearScreen();
     printf("請輸入學生人數 (5~10)：");
-    scanf("%d", &n);
-    
-    if (n < 5 || n > 10) {
+    if (scanf("%d", &n) != 1 || n < 5 || n > 10) {
         printf("輸入人數錯誤，請重新輸入。\n");
         return;
     }
@@ -110,13 +113,25 @@ void enterGrades()
         printf("請輸入第%d位學生的姓名：", i + 1);
         scanf("%s", students[student_count].name);
         printf("請輸入學號（6位整數）：");
-        scanf("%d", &students[student_count].id);
+        if (scanf("%d", &students[student_count].id) != 1 || students[student_count].id < 100000 || students[student_count].id > 999999) {
+            printf("學號輸入錯誤，請重新輸入。\n");
+            return;
+        }
         printf("請輸入數學成績（0~100）：");
-        scanf("%d", &students[student_count].math);
+        if (scanf("%d", &students[student_count].math) != 1 || !isValidGrade(students[student_count].math)) {
+            printf("數學成績輸入錯誤，請重新輸入。\n");
+            return;
+        }
         printf("請輸入物理成績（0~100）：");
-        scanf("%d", &students[student_count].physics);
+        if (scanf("%d", &students[student_count].physics) != 1 || !isValidGrade(students[student_count].physics)) {
+            printf("物理成績輸入錯誤，請重新輸入。\n");
+            return;
+        }
         printf("請輸入英文成績（0~100）：");
-        scanf("%d", &students[student_count].english);
+        if (scanf("%d", &students[student_count].english) != 1 || !isValidGrade(students[student_count].english)) {
+            printf("英文成績輸入錯誤，請重新輸入。\n");
+            return;
+        }
 
         students[student_count].average = (students[student_count].math + students[student_count].physics + students[student_count].english) / 3.0;
         student_count++;
@@ -124,7 +139,6 @@ void enterGrades()
 
     clearScreen();
 }
-
 
 // 主函式
 int main() 
@@ -134,7 +148,7 @@ int main()
     if (!login()) {
         return 0;
     }
-
+	clearScreen();
     while (1) {
         showMenu();
         printf("請選擇操作：");
