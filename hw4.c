@@ -140,6 +140,25 @@ void enterGrades()
     clearScreen();
 }
 
+// 顯示學生成績的函式
+void displayGrades() 
+{
+    clearScreen();
+    printf("學生成績如下：\n");
+    for (int i = 0; i < student_count; i++) {
+        printf("姓名：%s\n", students[i].name);
+        printf("學號：%d\n", students[i].id);
+        printf("數學成績：%d\n", students[i].math);
+        printf("物理成績：%d\n", students[i].physics);
+        printf("英文成績：%d\n", students[i].english);
+        printf("平均成績：%.1f\n", students[i].average);
+        printf("\n");
+    }
+    printf("按任意鍵回到主選單...");
+    getch();
+    clearScreen();
+}
+
 // 主函式
 int main() 
 {
@@ -160,6 +179,7 @@ int main()
                 enterGrades();
                 break;
             case 'b':
+            	displayGrades();
                 break;
             case 'c':
                 break;
