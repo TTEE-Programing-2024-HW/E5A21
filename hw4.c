@@ -191,6 +191,36 @@ void searchGrades()
     clearScreen();
 }
 
+// 成績排名的函式
+void gradeRanking() 
+{
+    clearScreen();
+    Student temp;
+    
+    // 簡單排序，依平均成績由高到低
+    for (int i = 0; i < student_count - 1; i++) {
+        for (int j = 0; j < student_count - i - 1; j++) {
+            if (students[j].average < students[j + 1].average) {
+                temp = students[j];
+                students[j] = students[j + 1];
+                students[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("成績排名如下：\n");
+    for (int i = 0; i < student_count; i++) {
+        printf("姓名：%s\n", students[i].name);
+        printf("學號：%d\n", students[i].id);
+        printf("平均成績：%.1f\n", students[i].average);
+        printf("\n");
+    }
+
+    printf("按任意鍵回到主選單...");
+    getch();
+    clearScreen();
+}
+
 // 主函式
 int main() 
 {
@@ -217,6 +247,7 @@ int main()
             	searchGrades();
                 break;
             case 'd':
+            	gradeRanking();
                 break;
             case 'e':
                 printf("確定離開？ (y/n)：");
